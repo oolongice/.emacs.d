@@ -53,6 +53,24 @@
                           (require 'lsp-pyright)
                           (lsp))))  ; or lsp-deferred
 
+;; Add Rust support
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :hook (rust-mode . lsp-deferred)
+  :config
+  (setq rust-format-on-save t))
+
+(with-eval-after-load 'lsp-rust
+  (setq lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (setq lsp-rust-analyzer-display-chaining-hints t)
+  (setq lsp-rust-analyzer-display-parameter-hints nil)
+  )
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
 
 ;; Reference panel at right side
 (use-package lsp-ui
